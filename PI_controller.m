@@ -4,7 +4,7 @@ k_max = 100;           % simulation steps
 E = zeros(1, k_max);   % battery energy
 Es = zeros(1, k_max);  % control input
 El = 0.2*ones(1, k_max); % load (disturbance), assumed constant
-El = 0.2+0.2*randn(1, k_max);   % Disturbance (load), random
+El = -1+0.1*randn(1, k_max);   % Disturbance (load), random
 
 % Initial Conditions
 E(1) = 2;               % initial battery level

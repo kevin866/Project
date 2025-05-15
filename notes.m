@@ -21,3 +21,16 @@ For the Value of Q and R we can experiment with more values later.
 same pole  placement location?
 6 – Design a MPC.
 Use a LQR but with finite horizon of time step 1 or other fixed value(can experiment later).
+
+observer with LQT(tracking)
+final r for disturbance is assumed known but it's in fact unknown
+
+note for self
+okay so the observer estimate the load energy which is random gaussian distribution
+with an offset. 
+LQT take the known distrubance dk (assumes to be a constant), therefore in this case
+ the LQT can't deal with the disturbance(load energy)
+ if we try to use observer to estimate the load energy and feed it to LQT's control
+ action, would it help?
+ 
+

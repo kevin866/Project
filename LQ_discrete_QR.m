@@ -1,7 +1,7 @@
 function discrete_LQT_multiple_QR()
     % Define Q and R values to test
-    Q_vals = [1 10 100];
-    R_vals = [1];
+    Q_vals = [1 10];
+    R_vals = [1 10];
     % Define colors for Q values and line styles for R values
     colors = {'b', 'g', 'm'};  % Q: 1, 10, 100
     lineStyles = {'-', '--', ':'};  % R: 0.1, 1, 10
@@ -77,7 +77,7 @@ function [x_out, u_out, r_out] = run_LQT(Q, R)
     
     % Backward Riccati recursion for S_k and v_k (with disturbance)
     for k = N:-1:1
-        d = 10*randn(1);  % Known constant disturbance
+        d = 10*randn(1);  % Known disturbance
         Sk1 = S(:,:,k+1);
         BT_Sk1_B = B' * Sk1 * B;
         inv_term = inv(BT_Sk1_B + R);

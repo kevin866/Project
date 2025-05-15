@@ -5,11 +5,11 @@ Eset = 3;                     % desired battery level
 
 % Disturbance (load), random (same for all runs to ensure fair comparison)
 rng(0);  % Set seed for reproducibility
-El = -1 + 0.1 * randn(1, k_max);   
+El = 1 + 0.1 * randn(1, k_max);   
 
 % Gain values to test
 Kp_values = [0.1, 1.0];
-Ki_values = [0.01, 0.1];
+Ki_values = [0.01, 0.05];
 
 % Prepare plot
 figure;
@@ -27,8 +27,13 @@ for i = 1:length(Kp_values)
         integral_error = 0;
 
         % Controller gains
-        Kp = Kp_values(i);
-        Ki = Ki_values(j);
+        Kp = Kp_values(i)
+        Ki = Ki_values(j)
+        A_cl = [1 - Kp, Ki; -1, 1];
+        eigvals = eig(A_cl)
+        is_stable = all(abs(eigvals) < 1);
+        disp(is_stable);
+
 
         % PI Control Simulation
         for k = 1:k_max-1

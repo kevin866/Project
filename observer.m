@@ -2,8 +2,8 @@ clc; clear;
 
 T = 50;
 E_true = zeros(1, T+1);     % True battery energy
-El_true = 0.4 + 0.2*randn(1, T);  % True disturbance (unknown to observer)
-Es = 0.5 + 0.2*randn(1, T);       % Input energy (known)
+El_true = 0.4 + 0.5*randn(1, T);  % True disturbance (unknown to observer)
+Es = 0.5 + 0*randn(1, T);       % Input energy (known)
 % Es =0.5+ 0 * randn(1, T); 
 % Clip negative values
 El_true = max(El_true, 0);
@@ -21,7 +21,7 @@ Q = check_obser(A,C);
 
 % Observer design (you can also use place(A',C',...)' or dlqr)
 % placing ploe at 0.5 0.6 within the unit circle for discrete system
-L = place(A', C', [0.5 0.6])';  % Observer gain
+L = place(A', C', [0.5 0.6])'  % Observer gain
 
 % Initialize observer
 x_hat = zeros(2, T+1);          % Estimated [E; El]
@@ -50,7 +50,7 @@ plot(0:T, x_hat(1,:), '--r', 'LineWidth', 2);
 xlabel('Time'); ylabel('Energy (kWh)');
 title('Battery Energy: True vs Estimated');
 legend('True E(k)', 'Estimated E(k)');
-
+% 
 subplot(2,1,2);
 plot(time, El_true, 'm', 'LineWidth', 2); hold on;
 plot(time, x_hat(2,1:T), '--k', 'LineWidth', 2);
@@ -59,7 +59,7 @@ title('Load Energy Drawn: True vs Estimated');
 legend('True E_l(k)', 'Estimated E_l(k)');
 
 function Q = check_obser(A,C)
-    Q = [C; C*A; C*A*A]; % Calculate observability matrix Q
+    Q = [C; C*A] % Calculate observability matrix Q
     Q_rank = rank(Q);
     if (Q_rank == size(A,1)) % Logic to assess observability
     disp('System is observable.');

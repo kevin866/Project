@@ -47,7 +47,7 @@ function [x_out, u_out, r_out] = run_LQT(Q, R)
     A = 1;
     B = 1;
     C = 1;  % Identity output matrix
-    d = 10*randn(1);  % Known constant disturbance
+    d = 0.5+10*randn(1);  % Known constant disturbance
     
     % Horizon
     N = 50;
